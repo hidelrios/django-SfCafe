@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %} {% block content %}
+<h2>{{ object.nome }}</h2>
+<p>Descrição: {{ object.descricao }}</p>
+
+<p>Preço: {{ object.preco }}</p>
+
+<p>Ingredientes: {{ object.ingredientes }}</p>
+
+<p>Informacoes nutricionais: {{ object.informacoes_nutricionais }}</p>
+
+<img src="/media/{{object.foto}}">
+
+
+{% comment %} <a href="{% url 'cliente-edit' cliente.id %}">Editar</a>
+<a href="{% url 'cliente-delete' cliente.id %}">Excluir</a>
+<a href="{% url 'cliente-list' %}">Voltar à lista</a> {% endcomment %}
+{% endblock %}

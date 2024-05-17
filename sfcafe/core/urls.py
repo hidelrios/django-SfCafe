@@ -8,4 +8,10 @@ urlpatterns = [
     path('clientes/<int:pk>/', views.ClienteDetailView.as_view(), name='cliente-detail'),
     path('clientes/<int:pk>/edit/', views.ClienteUpdateView.as_view(), name='cliente-edit'),
     path('clientes/<int:pk>/delete/', views.ClienteDeleteView.as_view(), name='cliente-delete'),
+
+    path('cardapio/', views.CardapioListView.as_view(), name='cardapio-list'),
+    path('cardapio/add/', views.CardapioCreateView.as_view(), name='cardapio-add'),
+    path('cardapio/<int:pk>/', views.CardapioDetailView.as_view(), name='cardapio-detail'),
+    path('cardapio/<int:pk>/edit/', views.CardapioUpdateView.as_view(), name='cardapio-edit'),
+    path('cardapio/<int:pk>/delete/', views.CardapioDeleteView.as_view(), name='cardapio-delete'),
 ]
