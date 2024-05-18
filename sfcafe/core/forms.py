@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente, ItemCardapio, ItemPedido, Pedido
+from .models import Cliente, Ingrediente, ItemCardapio, ItemPedido, Pedido
 
 from django.forms import inlineformset_factory
 
@@ -31,3 +31,8 @@ class PedidoForm(forms.ModelForm):
         fields = ['cliente','status','metodo_pagamento']
 
 ItemPedidoFormSet = inlineformset_factory(Pedido, ItemPedido, form=ItemPedidoForm, extra=1, can_delete=True)
+
+class IngredienteForm(forms.ModelForm):
+    class Meta:
+        model= Ingrediente
+        fields = "__all__"

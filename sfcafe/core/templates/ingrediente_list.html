@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Ingrediente</h2>
+  <a href="{% url 'ingrediente-add' %}">Adicionar Ingrediente</a>
+  <ul>
+    {% for ingrediente in ingredientes %}
+      <li>
+        <a href="{% url 'ingrediente-detail' ingrediente.id %}">{{ ingrediente.nome }}</a>
+        <a href="{% url 'ingrediente-edit' ingrediente.id %}">Editar</a>
+        <a href="{% url 'ingrediente-delete' ingrediente.id %}">Excluir</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
