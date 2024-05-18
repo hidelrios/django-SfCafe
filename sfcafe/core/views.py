@@ -1,10 +1,10 @@
 from urllib import request
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import *
 
-from .models import Cliente, ItemCardapio
-from .forms import CardapioForm, ClienteForm
+from .models import Cliente, ItemCardapio, ItemPedido, Pedido
+from .forms import CardapioForm, ClienteForm, ItemPedidoForm, ItemPedidoFormSet, PedidoForm
 
 
 # Create your views here.
@@ -65,3 +65,89 @@ class CardapioDeleteView(DeleteView):
     model = ItemCardapio
     template_name = 'cardapio_confirm_delete.html'
     success_url = reverse_lazy('cardapio-list')
+
+###Pedido
+class PedidoCreateView(CreateView):
+    model = Pedido
+    form_class = PedidoForm
+    template_name = 'pedido_form.html'
+    success_url = reverse_lazy('cliente-list')
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data['itens'] = ItemPedidoFormSet(self.request.POST)
+        else:
+            data['itens'] = ItemPedidoFormSet()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        itens = context['itens']
+        self.object = form.save()
+        if itens.is_valid():
+            itens.instance = self.object
+            itens.save()
+        return super().form_valid(form)
+    
+
+class PedidoListView(ListView):
+    model = Pedido
+    template_name = 'pedido_list.html'
+    context_object_name = 'pedidos'
+
+class PedidoDetailView(DetailView):
+    model = Pedido
+    template_name = 'pedido_detail.html'
+
+class PedidoUpdateView(UpdateView):
+    model = Pedido
+    form_class = PedidoForm
+    template_name = 'pedido_form.html'
+    success_url = reverse_lazy('pedido-list')
+
+class PedidoDeleteView(DeleteView):
+    model = Pedido
+    template_name = 'pedido_confirm_delete.html'
+    success_url = reverse_lazy('pedido-list')
+
+class ItemPedidoUpdateView(UpdateView):
+    model = ItemPedido
+    form_class = ItemPedidoForm
+    template_name = 'item_pedido_form.html'
+    success_url = reverse_lazy('pedido-detail')
+
+def adicionar_item_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    if request.method == 'POST':
+        form = ItemPedidoForm(request.POST)
+        if form.is_valid():
+            item_pedido = form.save(commit=False)
+            item_pedido.pedido = pedido
+            item_pedido.save()
+            return redirect('pedido-detail', pk=pedido_id)
+    else:
+        form = ItemPedidoForm()
+    
+    return render(request, 'adicionar_item_pedido.html', {'form': form, 'pedido': pedido})
+
+def deletar_item_pedido(request, pedido_id, item_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    item_pedido = get_object_or_404(ItemPedido, id=item_id)
+    item_pedido.delete()
+    return redirect('pedido-detail', pk=pedido_id)
+
+
+def editar_item_pedido(request, pedido_id, item_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    item_pedido = get_object_or_404(ItemPedido, id=item_id)
+    
+    if request.method == 'POST':
+        form = ItemPedidoForm(request.POST, instance=item_pedido)
+        if form.is_valid():
+            form.save()
+            return redirect('pedido-detail', pk=pedido_id)
+    else:
+        form = ItemPedidoForm(instance=item_pedido)
+    
+    return render(request, 'editar_item_pedido.html', {'form': form, 'pedido': pedido})

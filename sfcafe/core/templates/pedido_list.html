@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Pedido</h2>
+  <a href="{% url 'pedido-add' %}">Criar pedido</a>
+  <ul>
+    {% for pedido in pedidos %}
+      <li>
+        <a href="{% url 'pedido-detail' pedido.id %}">{{ pedido }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
