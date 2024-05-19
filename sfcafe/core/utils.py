@@ -1,4 +1,12 @@
+import os
+import uuid
 from fpdf import FPDF
+
+
+def get_file_patch(instance, filename):
+    ext = filename.split(".")[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('cardapio', filename)
 
 
 class GerarPdf(FPDF):

@@ -1,14 +1,7 @@
-import os
-import uuid
 from django.db import models
+from .utils import get_file_patch
 
 # Create your models here.
-
-
-def get_file_patch(instance, filename):
-    ext = filename.split(".")[-1]
-    filename = "%s.%s" % (uuid.uuid4(), ext)
-    return os.path.join('cardapio', filename)
 
 
 class Cliente(models.Model):
@@ -32,24 +25,11 @@ class Ingrediente(models.Model):
         return self.quantidade_estoque < self.quantidade_minima
 
 
-class Produto(models.Model):
-    nome = models.CharField(max_length=100)
-    quantidade_estoque = models.PositiveIntegerField(default=0)
-    quantidade_minima = models.PositiveIntegerField(default=0)
-
-    def __str__(self):
-        return self.nome
-
-    def verificar_estoque(self):
-        return self.quantidade_estoque < self.quantidade_minima
-
-
 class ItemCardapio(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
     preco = models.DecimalField(max_digits=6, decimal_places=2)
     ingredientes = models.ManyToManyField(Ingrediente)
-    produtos = models.ManyToManyField(Produto)
     informacoes_nutricionais = models.TextField()
     foto = models.ImageField(upload_to=get_file_patch, blank=True, null=True)
 
