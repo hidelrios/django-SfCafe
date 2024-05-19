@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %} {% block content %}
+<h1>Detalhes do {{ pedido}}</h1>
+
+<h2>Cliente: {{ pedido.cliente }}</h2>
+<p>Data: {{ pedido.data_pedido }}</p>
+<p>Status: {{ pedido.status }}</p>
+<h3>Itens do Pedido</h3>
+<a href="{% url 'pedido-adicionar-item' pedido.id %}"
+  >Adicionar item ao pedido</a
+>
+<ul>
+  {% for item in pedido.itempedido_set.all %}
+  <tr>
+    <td>{{ item.item_cardapio.nome }}</td>
+    <td>{{ item.quantidade }}</td>
+    <a href="{% url 'pedido-editar-item' pedido.id item.id %}">Editar</a>
+
+    <a href="{% url 'item-delete' pedido.id item.id %}">Excluir</a>
+  </tr>
+  {% endfor %}
+</ul>
+<a href="{% url 'pedido-edit' pedido.id %}">Editar</a>
+<a href="{% url 'pedido-delete' pedido.id %}">Excluir</a>
+<a href="{% url 'pedido-list' %}">Voltar à lista</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<ul>
+    <li><a href="{% url 'cliente-list' %}">Cliente</a></li>
+    <li><a href="{% url 'cardapio-list' %}">Cardápio</a></li>
+    <li><a href="{% url 'pedido-list' %}">Pedido</a></li>
+    <li><a href="{% url 'ingrediente-list' %}">Ingrediente</a></li>
+    <li><a href="{% url 'alerta-reposicao' %}">Ingredientes para reposição</a></li>
+    <li><a href="{% url 'gerar-relatorio-pedidos-concluidos' %}">Relatório Pedidos</a></li>
+</ul>
+{% endblock %}
+

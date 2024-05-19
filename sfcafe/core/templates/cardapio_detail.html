@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %} {% block content %}
+<h2>{{ object.nome }}</h2>
+<p>Descrição: {{ object.descricao }}</p>
+
+<p>Preço: {{ object.preco }}</p>
+
+<p>Ingredientes:</p>
+{% for item in object.ingredientes.all %}
+<tr>
+  <td>{{ item.nome }}</td>
+  <br />
+  <td>{{ item.quantidade }}</td>
+</tr>
+{% endfor %}
+
+<p>Informacoes nutricionais: {{ object.informacoes_nutricionais }}</p>
+
+<img src="/media/{{object.foto}}" />
+
+{% endblock %}
