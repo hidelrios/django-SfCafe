@@ -29,7 +29,7 @@ reposição quando necessário.
 
 ## 📋 Modelagem do projeto
 
-![Diagrama de classe](media/core_er.png)
+![Diagrama de classe](sfcafe/media/core_er.png)
 
 ## 💻 Configuração do Ambiente
 
