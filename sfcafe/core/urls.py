@@ -28,13 +28,24 @@ urlpatterns = [
          views.PedidoUpdateView.as_view(), name='pedido-edit'),
     path('pedido/<int:pk>/delete/',
          views.PedidoDeleteView.as_view(), name='pedido-delete'),
-    path('pedido/<int:pedido_id>/adicionar-item/', 
+    path('pedido/<int:pedido_id>/adicionar-item/',
          views.adicionar_item_pedido, name='pedido-adicionar-item'),
     path('pedido/<int:pedido_id>/editar-item/<int:item_id>/',
          views.editar_item_pedido, name='pedido-editar-item'),
     path('pedido/<int:pedido_id>/deletar-item/<int:item_id>/',
          views.deletar_item_pedido, name='item-delete'),
 
+    path('ingrediente/', views.IngredienteListView.as_view(),
+         name='ingrediente-list'),
+    path('ingrediente/add', views.IngredienteCreateView.as_view(),
+         name='ingrediente-add'),
+    path('ingrediente/<int:pk>/', views.IngredienteDetailView.as_view(), name='ingrediente-detail'),
+    path('ingrediente/<int:pk>/edit/',
+         views.IngredienteUpdateView.as_view(), name='ingrediente-edit'),
+    path('ingrediente/<int:pk>/delete/',
+         views.IngredienteDeleteView.as_view(), name='ingrediente-delete'),
+
+     path('alerta-reposicao/', views.alerta_reposicao, name='alerta-reposicao'),
 
 
 ]

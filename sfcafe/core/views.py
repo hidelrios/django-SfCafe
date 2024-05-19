@@ -2,9 +2,10 @@ from urllib import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import *
+from django.db.models import F
+from .models import Cliente, Ingrediente, ItemCardapio, ItemPedido, Pedido
+from .forms import CardapioForm, ClienteForm, IngredienteForm, ItemPedidoForm, ItemPedidoFormSet, PedidoForm
 
-from .models import Cliente, ItemCardapio, ItemPedido, Pedido
-from .forms import CardapioForm, ClienteForm, ItemPedidoForm, ItemPedidoFormSet, PedidoForm
 
 
 # Create your views here.
@@ -71,7 +72,7 @@ class PedidoCreateView(CreateView):
     model = Pedido
     form_class = PedidoForm
     template_name = 'pedido_form.html'
-    success_url = reverse_lazy('cliente-list')
+    success_url = reverse_lazy('pedido-list')
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -111,11 +112,6 @@ class PedidoDeleteView(DeleteView):
     template_name = 'pedido_confirm_delete.html'
     success_url = reverse_lazy('pedido-list')
 
-class ItemPedidoUpdateView(UpdateView):
-    model = ItemPedido
-    form_class = ItemPedidoForm
-    template_name = 'item_pedido_form.html'
-    success_url = reverse_lazy('pedido-detail')
 
 def adicionar_item_pedido(request, pedido_id):
     pedido = get_object_or_404(Pedido, id=pedido_id)
@@ -151,3 +147,35 @@ def editar_item_pedido(request, pedido_id, item_id):
         form = ItemPedidoForm(instance=item_pedido)
     
     return render(request, 'editar_item_pedido.html', {'form': form, 'pedido': pedido})
+
+######Ingredientes e Produtos
+class IngredienteListView(ListView):
+    model = Ingrediente
+    template_name = 'ingrediente_list.html'
+    context_object_name = 'ingredientes'
+
+class IngredienteDetailView(DetailView):
+    model = Ingrediente
+    template_name = 'ingrediente_detail.html'
+
+class IngredienteCreateView(CreateView):
+    model = Ingrediente
+    form_class = IngredienteForm
+    template_name = 'ingrediente_form.html'
+    success_url = reverse_lazy('ingrediente-list')
+
+class IngredienteUpdateView(UpdateView):
+    model = Ingrediente
+    form_class = IngredienteForm
+    template_name = 'ingrediente_form.html'
+    success_url = reverse_lazy('ingrediente-list')
+
+class IngredienteDeleteView(DeleteView):
+    model = Ingrediente
+    template_name = 'ingrediente_confirm_delete.html'
+    success_url = reverse_lazy('ingrediente-list')
+
+
+def alerta_reposicao(request):
+    ingredientes = Ingrediente.objects.filter(quantidade_estoque__lte=F('quantidade_minima'))
+    return render(request, 'alerta_reposicao.html', {'ingredientes': ingredientes})
