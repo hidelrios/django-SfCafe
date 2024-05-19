@@ -1,18 +1,16 @@
-{% extends "base_generic.html" %}
-
-{% block content %}
-  <h2>{% if form.instance.pk %}Editar Pedido{% else %}Realizar Pedido{% endif %}</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <h3>Itens</h3>
-    {{ itens.management_form }}
-    {% for formset in itens %}
-      <div class="formset">
-        {{ formset.as_p }}
-      </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Atualizar{% else %}Salvar{% endif %}</button>
-  </form>
-  <a href="{% url 'pedido-list' %}">Voltar</a>
+{% extends "base_generic.html" %} {% block content %}
+<h2>
+  {% if form.instance.pk %}Editar Pedido{% else %}Realizar Pedido{% endif %}
+</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <h3>Itens</h3>
+  {{ itens.management_form }} {% for formset in itens %}
+  <div class="formset">{{ formset.as_p }}</div>
+  {% endfor %}
+  <button type="submit" class="btn btn-primary">
+    {% if form.instance.pk %}Atualizar{% else %}Salvar{% endif %}
+  </button>
+</form>
+<a href="{% url 'pedido-list' %}">Voltar</a>
 {% endblock %}

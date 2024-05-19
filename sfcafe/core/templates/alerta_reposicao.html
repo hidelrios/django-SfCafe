@@ -1,14 +1,11 @@
-{% extends "base_generic.html" %}
-
-{% block content %}
-  <h2>Alertas de Reposição</h2>
-  <h3>Ingredientes</h3>
-  <ul>
-    {% for ingrediente in ingredientes %}
-      <li>{{ ingrediente.nome }} - Estoque atual: {{ ingrediente.quantidade_estoque }}</li>
-    {% endfor %}
-  </ul>
-
-
-  {% comment %} <a href="{% url 'item-list' %}">Voltar à lista de itens</a> {% endcomment %}
+{% extends "base_generic.html" %} {% block content %}
+<h2>Alertas de Reposição</h2>
+<h3>Ingredientes</h3>
+<ul>
+  {% for ingrediente in ingredientes %}
+  <li>
+    {{ ingrediente.nome }} - Estoque atual: {{ ingrediente.quantidade_estoque }}
+  </li>
+  {% endfor %}
+</ul>
 {% endblock %}

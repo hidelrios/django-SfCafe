@@ -7,11 +7,9 @@
 <p>Ingredientes:</p>
 {% for item in object.ingredientes.all %}
 <tr>
-  <td>{{ item.nome }}</td><br>
+  <td>{{ item.nome }}</td>
+  <br />
   <td>{{ item.quantidade }}</td>
-  {% comment %} <a href="{% url 'pedido-editar-item' pedido.id item.id %}">Editar</a>
-  
-  <a href="{% url 'item-delete' pedido.id item.id %}">Excluir</a> {% endcomment %}
 </tr>
 {% endfor %}
 

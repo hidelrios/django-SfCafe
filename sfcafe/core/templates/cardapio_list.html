@@ -1,16 +1,18 @@
-{% extends "base_generic.html" %}
+{% extends "base_generic.html" %} {% block content %}
+<h2>Cardapio</h2>
+<a href="{% url 'cardapio-add' %}">Adicionar Cardapio</a>
+<ul>
+  {% for item in itemcardapio %}
 
-{% block content %}
-  <h2>Cardapio</h2>
-  <a href="{% url 'cardapio-add' %}">Adicionar Cardapio</a>
-  <ul>
-    {% for item in itemcardapio %}
-    
-      <li>
-        <a href="{% url 'cardapio-detail' item.id %}">{{item.id}}|{{ item.nome }}</a>
-        <a href="{% url 'cardapio-edit' item.id %}">Editar</a>
-        <a href="{% url 'cardapio-delete' item.id %}">Excluir</a>
-      <li/>
-    {% endfor %}
-  </ul>
+  <li>
+    <a href="{% url 'cardapio-detail' item.id %}"
+      >{{item.id}}|{{ item.nome }}</a
+    >
+    <a href="{% url 'cardapio-edit' item.id %}">Editar</a>
+    <a href="{% url 'cardapio-delete' item.id %}">Excluir</a>
+  </li>
+
+  <li />
+  {% endfor %}
+</ul>
 {% endblock %}
