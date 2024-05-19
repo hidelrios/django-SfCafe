@@ -1,11 +1,8 @@
-{% extends "base_generic.html" %}
-
-{% block content %}
-  <h2>Adicionar Item ao Pedido</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Adicionar</button>
-  </form>
-  <a href="{% url 'pedido-detail' pedido.id %}">Voltar ao Pedido</a>
+{% extends "base_generic.html" %} {% block content %}
+<h2>Adicionar Item ao Pedido</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Adicionar</button>
+</form>
+<a href="{% url 'pedido-detail' pedido.id %}">Voltar ao Pedido</a>
 {% endblock %}

@@ -1,10 +1,11 @@
-{% extends "base_generic.html" %}
-
-{% block content %}
-  <h2>{% if form.instance.pk %}Editar Cliente{% else %}Adicionar Cliente{% endif %}</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if form.instance.pk %}Atualizar{% else %}Salvar{% endif %}</button>
-  </form>
+{% extends "base_generic.html" %} {% block content %}
+<h2>
+  {% if form.instance.pk %}Editar Cliente{% else %}Adicionar Cliente{% endif %}
+</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">
+    {% if form.instance.pk %}Atualizar{% else %}Salvar{% endif %}
+  </button>
+</form>
 {% endblock %}

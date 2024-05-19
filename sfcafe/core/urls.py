@@ -39,13 +39,17 @@ urlpatterns = [
          name='ingrediente-list'),
     path('ingrediente/add', views.IngredienteCreateView.as_view(),
          name='ingrediente-add'),
-    path('ingrediente/<int:pk>/', views.IngredienteDetailView.as_view(), name='ingrediente-detail'),
+    path('ingrediente/<int:pk>/', views.IngredienteDetailView.as_view(),
+         name='ingrediente-detail'),
     path('ingrediente/<int:pk>/edit/',
          views.IngredienteUpdateView.as_view(), name='ingrediente-edit'),
     path('ingrediente/<int:pk>/delete/',
          views.IngredienteDeleteView.as_view(), name='ingrediente-delete'),
 
-     path('alerta-reposicao/', views.alerta_reposicao, name='alerta-reposicao'),
+    path('alerta-reposicao/', views.alerta_reposicao, name='alerta-reposicao'),
+
+    path('gerar-relatorio-pedidos-concluidos/', views.gerar_relatorio_pedidos_concluidos,
+         name='gerar-relatorio-pedidos-concluidos'),
 
 
 ]

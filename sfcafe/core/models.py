@@ -76,6 +76,11 @@ class Pedido(models.Model):
     def __str__(self):
         return f"Pedido {self.id} - {self.cliente.nome}"
 
+    def calcular_total(self):
+        total = sum(
+            item.quantidade * item.item_cardapio.preco for item in self.itempedido_set.all())
+        return total
+
 
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)

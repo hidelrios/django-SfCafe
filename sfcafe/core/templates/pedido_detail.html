@@ -5,14 +5,16 @@
 <p>Data: {{ pedido.data_pedido }}</p>
 <p>Status: {{ pedido.status }}</p>
 <h3>Itens do Pedido</h3>
-<a href="{% url 'pedido-adicionar-item' pedido.id %}">Adicionar item ao pedido</a>
+<a href="{% url 'pedido-adicionar-item' pedido.id %}"
+  >Adicionar item ao pedido</a
+>
 <ul>
   {% for item in pedido.itempedido_set.all %}
   <tr>
     <td>{{ item.item_cardapio.nome }}</td>
     <td>{{ item.quantidade }}</td>
     <a href="{% url 'pedido-editar-item' pedido.id item.id %}">Editar</a>
-    
+
     <a href="{% url 'item-delete' pedido.id item.id %}">Excluir</a>
   </tr>
   {% endfor %}
